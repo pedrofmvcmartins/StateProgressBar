@@ -22,7 +22,7 @@ public class UsageStatusActivity extends  UsageBaseActivity {
         injectBackView();
 
         nextBtn.setText("Submit");
-        stateprogressbar.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
+        stateprogressbar.setCurrentStateNumber(4);
     }
 
 

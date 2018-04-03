@@ -32,19 +32,6 @@ import java.util.List;
 public class StateProgressBar extends View {
 
 
-    public enum StateNumber {
-        ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5);
-        private int value;
-
-        StateNumber(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
     private static final int MIN_STATE_NUMBER = 1;
     private static final int MAX_STATE_NUMBER = 5;
 
@@ -194,7 +181,7 @@ public class StateProgressBar extends View {
             mCurrentStateDescriptionColor = a.getColor(R.styleable.StateProgressBar_spb_currentStateDescriptionColor, mCurrentStateDescriptionColor);
             mStateDescriptionColor = a.getColor(R.styleable.StateProgressBar_spb_stateDescriptionColor, mStateDescriptionColor);
 
-            mCurrentStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumber, mCurrentStateNumber);
+            mCurrentStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumber, a.getInteger(R.styleable.StateProgressBar_spb_maxStateNumber, mCurrentStateNumber));
             mMaxStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_maxStateNumber, mMaxStateNumber);
 
             mStateSize = a.getDimension(R.styleable.StateProgressBar_spb_stateSize, mStateSize);
@@ -343,9 +330,9 @@ public class StateProgressBar extends View {
         return mCurrentStateDescriptionColor;
     }
 
-    public void setCurrentStateNumber(StateNumber currentStateNumber) {
-        validateStateNumber(currentStateNumber.getValue());
-        mCurrentStateNumber = currentStateNumber.getValue();
+    public void setCurrentStateNumber(int currentStateNumber) {
+        validateStateNumber(currentStateNumber);
+        mCurrentStateNumber = currentStateNumber;
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
     }
@@ -355,8 +342,8 @@ public class StateProgressBar extends View {
     }
 
 
-    public void setMaxStateNumber(StateNumber maximumState) {
-        mMaxStateNumber = maximumState.getValue();
+    public void setMaxStateNumber(int maximumState) {
+        mMaxStateNumber = maximumState;
         validateStateNumber(mCurrentStateNumber);
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
@@ -543,8 +530,8 @@ public class StateProgressBar extends View {
         mStateNumberTextSize = 0.0f;
         mStateDescriptionSize = 15f;
 
-        mMaxStateNumber = StateNumber.FIVE.getValue();
-        mCurrentStateNumber = StateNumber.ONE.getValue();
+        mMaxStateNumber = 5;
+        mCurrentStateNumber = 1;
 
         mSpacing = 4.0f;
 
